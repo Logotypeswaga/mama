@@ -2,14 +2,13 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>С 50-летием, любимая мамочка!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>С 50-летием, любимая мамочка!</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
@@ -20,177 +19,149 @@
             align-items: center;
             padding: 20px;
             position: relative;
-            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        /* Анимированный фон из частиц (звездочки) */
+
+        /* Упрощенный фон (меньше анимаций) */
         body::before {
             content: '';
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml;utf8,<svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><circle cx="3" cy="3" r="1.5" fill="%23ffd966" opacity="0.6"/><circle cx="25" cy="12" r="2" fill="%23ffb3ba" opacity="0.5"/><circle cx="12" cy="25" r="1.2" fill="%23bae1ff" opacity="0.7"/></svg>');
-            opacity: 0.5;
+            background: radial-gradient(circle at 20% 50%, rgba(255,215,0,0.1) 0%, transparent 50%);
             pointer-events: none;
-            animation: sparkle 10s linear infinite;
-        }
-
-        @keyframes sparkle {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(-20px) rotate(5deg); opacity: 0.3; }
+            z-index: 0;
         }
 
         .container {
             max-width: 1300px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 60px 60px 40px 40px;
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 215, 0, 0.3) inset;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border-radius: 50px;
             padding: 40px 30px;
             position: relative;
             z-index: 2;
-            border: 1px solid rgba(255, 223, 186, 0.3);
-            animation: glowPulse 4s infinite alternate;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: box-shadow 0.3s ease;
         }
 
-        @keyframes glowPulse {
-            0% { box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 215, 0, 0.2) inset; }
-            100% { box-shadow: 0 30px 70px rgba(255, 200, 100, 0.4), 0 0 0 4px rgba(255, 223, 0, 0.6) inset; }
+        .container:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 0 2px rgba(255, 215, 0, 0.5) inset;
         }
 
-        /* Стили для заголовка */
+        /* Заголовки */
         .title {
             text-align: center;
-            font-size: 3.5rem;
+            font-size: clamp(2rem, 8vw, 3.5rem);
             font-weight: 800;
             background: linear-gradient(135deg, #f6e9a0, #f2c94c, #f09b6a);
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-            animation: slideDown 1s ease-out;
-        }
-        .subtitle {
-            text-align: center;
-            font-size: 2rem;
-            color: #ffdab9;
-            margin-bottom: 40px;
-            font-style: italic;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-            animation: slideUp 1s 0.2s both;
+            color: transparent;
+            margin-bottom: 15px;
         }
 
-        /* КОНТЕЙНЕР ФОТО 1 - В СЕРДЕЧКЕ */
+        .subtitle {
+            text-align: center;
+            font-size: clamp(1.2rem, 5vw, 2rem);
+            color: #ffdab9;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        /* Сердце для фото - оптимизированное */
         .heart-frame {
             display: flex;
             justify-content: center;
-            margin: 30px 0 50px;
-            filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.7));
-            animation: popIn 0.8s 0.3s both;
+            margin: 20px 0 30px;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
         }
+
         .heart {
-            position: relative;
-            width: 320px;
-            height: 290px;
+            width: min(320px, 80vw);
+            height: auto;
+            aspect-ratio: 320 / 290;
             clip-path: path("M160,260 C40,160 0,100 0,50 C0,-10 50,-20 80,10 C100,25 130,50 160,85 C190,50 220,25 240,10 C270,-20 320,-10 320,50 C320,100 280,160 160,260 Z");
-            background: #ffb7c5; /* Розовый фон, если фото не вставлено */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: #ffb7c5;
             overflow: hidden;
-            transition: transform 0.3s;
-            border: 4px solid #ffdb9f;
-            box-shadow: 0 0 30px #fbbc04;
+            transition: transform 0.2s ease;
+            border: 3px solid #ffdb9f;
         }
+
         .heart img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
+
         .heart:hover {
             transform: scale(1.02);
         }
-        /* Подпись под фото */
+
         .photo1-caption {
             text-align: center;
-            margin-top: 15px;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #ffe0b9;
             background: rgba(0,0,0,0.4);
             padding: 5px 20px;
             border-radius: 50px;
             display: inline-block;
-            position: relative;
-            left: 50%;
-            transform: translateX(-50%);
+            margin: 0 auto;
+            width: fit-content;
             backdrop-filter: blur(2px);
         }
 
-        /* Основной текст о маме */
+        /* Основной текст */
         .main-message {
-            background: rgba(50, 30, 40, 0.6);
+            background: rgba(50, 30, 40, 0.5);
             backdrop-filter: blur(5px);
-            padding: 40px 30px;
-            border-radius: 80px 20px 80px 20px;
-            margin: 50px 0;
-            border-left: 7px solid #f7c35c;
-            border-right: 7px solid #f75c7c;
+            padding: 30px 20px;
+            border-radius: 50px 20px 50px 20px;
+            margin: 40px 0;
+            border-left: 5px solid #f7c35c;
+            border-right: 5px solid #f75c7c;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            animation: fadeIn 1.5s 0.5s both;
-        }
-        .main-message p {
-            font-size: 1.9rem;
-            line-height: 1.5;
-            color: #fff9e6;
-            font-weight: 500;
-            text-shadow: 2px 2px 4px #000;
-        }
-        .main-message span {
-            font-size: 2.5rem;
-            display: inline-block;
-            animation: bounce 2s infinite;
         }
 
-        /* СЕТКА ДЛЯ 4 ФОТО (2x2) + одно отдельно */
+        .main-message p {
+            font-size: clamp(1.2rem, 5vw, 1.9rem);
+            line-height: 1.4;
+            color: #fff9e6;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .main-message span {
+            font-size: 1.8rem;
+            display: inline-block;
+        }
+
+        /* Сетка фото */
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            margin: 60px 0 40px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
         }
 
         .photo-card {
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            padding: 20px;
+            border-radius: 25px;
+            padding: 15px;
             backdrop-filter: blur(4px);
-            border: 2px dashed rgba(255, 223, 0, 0.5);
-            transition: all 0.4s;
+            border: 1px solid rgba(255, 223, 0, 0.3);
+            transition: all 0.2s ease;
             text-align: center;
-            animation: float 5s infinite alternate;
-            box-shadow: 0 15px 25px -8px black;
-        }
-        .photo-card:nth-child(2) { animation-delay: 0.5s; }
-        .photo-card:nth-child(3) { animation-delay: 1s; }
-        .photo-card:nth-child(4) { animation-delay: 1.5s; }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(-12px); }
         }
 
         .photo-card:hover {
-            border: 2px solid gold;
-            background: rgba(255, 255, 255, 0.25);
-            transform: scale(1.02) translateY(-8px);
+            border-color: gold;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
         }
 
         .photo-place {
@@ -199,67 +170,27 @@
             background: #3a2c38;
             border-radius: 20px;
             overflow: hidden;
-            border: 3px solid #f9cf7e;
-            box-shadow: inset 0 0 15px #b35e7c;
         }
+
         .photo-place img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s;
+            transition: transform 0.3s ease;
         }
+
         .photo-place img:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
+
         .photo-label {
-            margin-top: 15px;
-            font-size: 1.4rem;
+            margin-top: 12px;
+            font-size: 1.2rem;
             color: #ffe3b0;
             font-weight: 600;
         }
 
-        /* пятое отдельное фото - стилизуем красиво */
-        .bonus-photo {
-            margin: 50px 0 40px;
-            display: flex;
-            justify-content: center;
-        }
-        .bonus-card {
-            width: 70%;
-            background: linear-gradient(145deg, #402a36, #2b1d28);
-            border-radius: 150px 30px 150px 30px;
-            padding: 20px;
-            border: 3px solid #e9b16c;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            animation: rotateIn 1s 1s both;
-            box-shadow: 0 0 40px #ffa07a;
-        }
-        .bonus-photo-place {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 7px solid #fad5a5;
-            box-shadow: 0 0 0 5px #e0698f;
-        }
-        .bonus-photo-place img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .bonus-label {
-            font-size: 2rem;
-            margin-top: 20px;
-            color: #fadfa3;
-            text-transform: uppercase;
-            background: rgba(0,0,0,0.5);
-            padding: 8px 20px;
-            border-radius: 40px;
-        }
-
-        /* Плавающие сердечки (декор) */
+        /* Плавающие сердечки - упрощенные для производительности */
         .floating-hearts {
             position: fixed;
             top: 0;
@@ -267,46 +198,113 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 5;
+            z-index: 1;
         }
+
         .floating-hearts span {
             position: absolute;
-            color: #ff80ab;
-            font-size: 30px;
-            opacity: 0.5;
-            animation: fly 9s linear infinite;
-            user-select: none;
-        }
-        @keyframes fly {
-            0% { transform: translateY(100vh) scale(0.8); opacity: 0.8; }
-            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+            color: rgba(255, 128, 171, 0.6);
+            font-size: 25px;
+            animation: floatHeart 12s linear infinite;
+            will-change: transform;
         }
 
-        /* 5 разных позиций для плавающих сердечек */
-        .floating-hearts span:nth-child(1) { left: 10%; animation-duration: 8s; font-size: 45px; animation-delay: 0s; }
-        .floating-hearts span:nth-child(2) { left: 30%; animation-duration: 10s; font-size: 35px; animation-delay: 2s; }
-        .floating-hearts span:nth-child(3) { left: 50%; animation-duration: 7s; font-size: 55px; animation-delay: 1s; }
-        .floating-hearts span:nth-child(4) { left: 70%; animation-duration: 11s; font-size: 25px; animation-delay: 4s; }
-        .floating-hearts span:nth-child(5) { left: 90%; animation-duration: 9s; font-size: 40px; animation-delay: 3s; }
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
 
-        /* Анимации появления */
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-70px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(70px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes popIn { 0% { opacity: 0; transform: scale(0.3); } 80% { transform: scale(1.05); } 100% { opacity: 1; transform: scale(1); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes rotateIn { from { opacity: 0; transform: rotate(-5deg) scale(0.8); } to { opacity: 1; transform: rotate(0) scale(1); } }
+        /* Позиции сердечек */
+        .floating-hearts span:nth-child(1) { left: 10%; animation-duration: 14s; animation-delay: 0s; }
+        .floating-hearts span:nth-child(2) { left: 25%; animation-duration: 16s; animation-delay: 2s; font-size: 30px; }
+        .floating-hearts span:nth-child(3) { left: 45%; animation-duration: 12s; animation-delay: 1s; font-size: 35px; }
+        .floating-hearts span:nth-child(4) { left: 65%; animation-duration: 18s; animation-delay: 3s; font-size: 28px; }
+        .floating-hearts span:nth-child(5) { left: 85%; animation-duration: 15s; animation-delay: 4s; font-size: 32px; }
 
-        /* Адаптация под телефон */
-        @media (max-width: 800px) {
-            .title { font-size: 2.8rem; }
-            .photo-grid { grid-template-columns: 1fr; }
-            .heart { width: 260px; height: 235px; }
-            .bonus-card { width: 95%; }
+        /* Блок пожелания */
+        .wish-block {
+            margin: 40px 0 20px;
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50px;
+        }
+
+        .wish-block p:first-child {
+            font-size: clamp(1.5rem, 6vw, 2.2rem);
+            color: #ffdab9;
+            text-shadow: 0 0 5px rgba(255,215,0,0.5);
+        }
+
+        .wish-block p:last-child {
+            font-size: clamp(1rem, 4vw, 1.5rem);
+            color: #ffe4b5;
+            margin-top: 10px;
+        }
+
+        /* Подвал */
+        .footer {
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,200,0.3);
+            padding: 25px 20px 10px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+            color: #fff3e0;
+            font-size: 0.9rem;
+        }
+
+        /* Адаптация для мобильных */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px 20px;
+            }
+            
+            .photo-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .photo-place {
+                height: 220px;
+            }
+            
+            .main-message {
+                padding: 20px 15px;
+                margin: 30px 0;
+            }
+            
+            .floating-hearts span {
+                font-size: 20px;
+            }
+        }
+
+        /* Для очень маленьких экранов */
+        @media (max-width: 480px) {
+            .photo-place {
+                height: 200px;
+            }
+            
+            .photo-label {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Плавающие анимированные сердечки -->
     <div class="floating-hearts">
         <span>❤️</span>
         <span>🧡</span>
@@ -319,16 +317,13 @@
         <h1 class="title">💐 С 50-летием, Мама! 💐</h1>
         <div class="subtitle">🎂 Наша золотая и любимая 🎂</div>
 
-        <!-- ГЛАВНОЕ ФОТО В СЕРДЦЕ (ФОТО 1) -->
         <div class="heart-frame">
             <div class="heart">
-                <!-- ВСТАВЬ ГЛАВНОЕ ФОТО МАМЫ В СЕРДЕЧКО: замени src -->
-                <img src="osn.jpg" alt="Мамочка в сердечке">
+                <img src="осн.jpg" alt="Мамочка в сердечке" loading="lazy">
             </div>
         </div>
         <div class="photo1-caption">✨ Самая красивая ✨</div>
 
-        <!-- ОСНОВНОЙ ТЕКСТ, КОТОРЫЙ ТЫ СКАЗАЛ -->
         <div class="main-message">
             <p>
                 <span>🌸</span> Моя мама — самая лучшая на свете! <span>🌸</span><br>
@@ -339,61 +334,46 @@
             </p>
         </div>
 
-        <!-- СЕТКА НА 4 ФОТО (ФОТО 2, 3, 4, 5) - расставим как 2x2 -->
         <div class="photo-grid">
-            <!-- ФОТО 2 -->
             <div class="photo-card">
                 <div class="photo-place">
-                    <!-- ВСТАВЬ ФОТО 2 (мама в молодости) -->
-                    <img src="winter.jpg" alt="Тогда и сейчас">
+                    <img src="зима.jpg" alt="Любовь" loading="lazy">
                 </div>
-                <div class="photo-label">✨Любовь ✨</div>
+                <div class="photo-label">✨ Любовь ✨</div>
             </div>
-            <!-- ФОТО 3 -->
+            
             <div class="photo-card">
                 <div class="photo-place">
-                    <!-- ВСТАВЬ ФОТО 3 (семейное фото) -->
-                    <img src="1.jpg" alt="Семья">
+                    <img src="1.jpg" alt="Красота" loading="lazy">
                 </div>
                 <div class="photo-label">👨‍👩‍👧 Красота 👨‍👩‍👧</div>
             </div>
-            <!-- ФОТО 4 -->
+            
             <div class="photo-card">
                 <div class="photo-place">
-                    <!-- ВСТАВЬ ФОТО 4 (мама с подругами / увлечение) -->
-                    <img src="2.jpg" alt="Увлечения">
+                    <img src="2.jpg" alt="Счастливые моменты" loading="lazy">
                 </div>
                 <div class="photo-label">🌺 Счастливые моменты 🌺</div>
             </div>
-            <!-- ФОТО 5 (последнее в сетке) -->
+            
             <div class="photo-card">
                 <div class="photo-place">
-                    <!-- ВСТАВЬ ФОТО 5 (отдых/путешествие) -->
-                    <img src="3.jpg"Отдых">
+                    <img src="3.jpg" alt="Яркие впечатления" loading="lazy">
                 </div>
                 <div class="photo-label">🌍 Яркие впечатления 🌍</div>
             </div>
         </div>
 
-        <!-- БОНУСНОЕ 6-Е ФОТО? Но по заданию 5 фото. Однако у нас уже есть главное в сердце (фото 1) + 4 в сетке = 5. 
-        Но я замечу что в сетке у нас 4, плюс сердце =5, всё ок. Но я хочу добавить еще одно, красивое, итого будет 6? Нет, в задании 5. Пересчитаем: главное (сердце) =1, сетка из 4 фото =2,3,4,5. Идеально!  
-        Поэтому я убираю лишний "бонус фото", чтобы было ровно 5 фото. Удаляю секцию .bonus-photo, чтобы не сбивать счет. 
-        Но для красоты оставлю еще один текстовый блок внизу.  -->
-        
-        <!-- Вместобонуса добавлю красивый блок с пожеланием на 50 лет -->
-        <div style="margin: 60px 0 20px; text-align: center; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 100px; animation: fadeIn 2s 1s both;">
-            <p style="font-size: 2.2rem; color: #ffdab9; text-shadow: 0 0 10px gold;">🥂 50 – прекрасный возраст! 🥂</p>
-            <p style="font-size: 1.5rem; color: #ffe4b5;">Ты становишься только красивее, мудрее и лучезарнее. Сияй!</p>
+        <div class="wish-block">
+            <p>🥂 50 – прекрасный возраст! 🥂</p>
+            <p>Ты становишься только красивее, мудрее и лучезарнее. Сияй!</p>
         </div>
 
-        <!-- Подвал с датой и именем (можно изменить) -->
-        <div style="margin-top: 40px; border-top: 2px solid rgba(255,255,200,0.5); padding: 30px 20px 10px; display: flex; justify-content: space-around; flex-wrap: wrap; color: #fff3e0;">
+        <div class="footer">
             <span>С днём рождения, мамуля!</span>
-            <span>💝 От нас💝</span>
+            <span>💝 От нас 💝</span>
             <span>2026 год</span>
         </div>
     </div>
-
-    <!-- Маленькая хитрость: счетчик фото: в сердце (1) + сетка 4 = 5. Идеально. -->
 </body>
 </html>
